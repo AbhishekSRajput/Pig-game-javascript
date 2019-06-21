@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var scores ,activePlayer ,roundScore ,gamePlaying;
+var scores ,activePlayer ,roundScore ,gamePlaying ,lastRoll;
 
 
 inIt();
@@ -23,13 +23,23 @@ document.querySelector('.btn-roll').addEventListener('click' , function(){
     if(gamePlaying){
          //1 we need a random number
     var dice = Math.floor(Math.random()*6)+1;
+    //storing value in this variable
+    
+
+    //checking for if 6 have came twice 
+    
     //2 display results
     var diceDom = document.querySelector('.dice'); 
      diceDom.style.display = 'block';
      diceDom.src ='dice-' + dice + '.png';
+    
+    if(dice===6 && lastRoll===6){
+    scores[activePlayer]=0;
+    document.querySelector('#score-'+activePlayer).textContent=scores[activePlayer];
+    nextPlayer();
 
-    //3 update the round score if only the number has not 1 in it 
-    if(dice !== 1){
+    }//3 update the round score if only the number has not 1 in it 
+    else if(dice !== 1){
         //add a score
         roundScore += dice;
         document.querySelector('#current-' + activePlayer).textContent=roundScore;
@@ -37,7 +47,7 @@ document.querySelector('.btn-roll').addEventListener('click' , function(){
         nextPlayer();
     }
     }
-    
+    lastRoll=dice;
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function(){
