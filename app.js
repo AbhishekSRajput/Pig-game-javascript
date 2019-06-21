@@ -59,9 +59,19 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
 
       //the update the ui
       document.querySelector('#score-' + activePlayer).textContent =scores[activePlayer];  
+      
+      var input = document.querySelector('.final-score').value; 
+      var winningScore;
+      // all the value of undefined ,0 ,null or "" are COERCED to false
+      //anything else COERCED to true 
+      if(input){
+           winningScore= input;
 
+      }else{
+           winningScore=100;
+      }
       //check if player won the game
-      if(scores[activePlayer] >= 100){
+      if(scores[activePlayer] >= winningScore){
       document.querySelector("#name-" + activePlayer).textContent='winner';
       document.querySelector('.dice').style.display ='none';
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
