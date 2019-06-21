@@ -22,32 +22,36 @@ document.querySelector('.btn-roll').addEventListener('click' , function(){
 
     if(gamePlaying){
          //1 we need a random number
-    var dice = Math.floor(Math.random()*6)+1;
+    var dice1 = Math.floor(Math.random()*6)+1;
+    var dice2 = Math.floor(Math.random()*6)+1;
     //storing value in this variable
     
 
     //checking for if 6 have came twice 
     
     //2 display results
-    var diceDom = document.querySelector('.dice'); 
-     diceDom.style.display = 'block';
-     diceDom.src ='dice-' + dice + '.png';
+    document.getElementById('dice-1').style.display='block';
+    document.getElementById('dice-2').style.display='block';
+     
+    document.getElementById('dice-1').src ='dice-' + dice1 + '.png';
+    document.getElementById('dice-2').src ='dice-' + dice2 + '.png';
     
-    if(dice===6 && lastRoll===6){
+    /*if(dice===6 && lastRoll===6){
     scores[activePlayer]=0;
     document.querySelector('#score-'+activePlayer).textContent=scores[activePlayer];
     nextPlayer();
 
     }//3 update the round score if only the number has not 1 in it 
-    else if(dice !== 1){
+    else */
+    if(dice1 !== 1 && dice2 !== 1 ){
         //add a score
-        roundScore += dice;
+        roundScore += dice1 + dice2;
         document.querySelector('#current-' + activePlayer).textContent=roundScore;
     }else {
         nextPlayer();
     }
     }
-    lastRoll=dice;
+    
 });
 
 document.querySelector('.btn-hold').addEventListener('click', function(){
@@ -73,7 +77,8 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
       //check if player won the game
       if(scores[activePlayer] >= winningScore){
       document.querySelector("#name-" + activePlayer).textContent='winner';
-      document.querySelector('.dice').style.display ='none';
+      document.getElementById('dice-1').style.display ='none';
+      document.getElementById('dice-2').style.display ='none';
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
       document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
       gamePlaying=false;
@@ -101,7 +106,8 @@ function nextPlayer(){
     document.querySelector('.player-1-panel').classList.toggle('active');
     //document.querySelector('.player-0-panel').classList.remove('active');
     //document.querySelector('.player-1-panel').classList.add('active');
-
+    document.getElementById('dice-1').style.display = 'none';
+    document.getElementById('dice-2').style.display = 'none';
 }
 
 function inIt(){
@@ -110,7 +116,8 @@ function inIt(){
     activePlayer=0;
     gamePlaying=true;
     
-    document.querySelector('.dice').style.display='none';
+    document.getElementById('dice-1').style.display='none';
+    document.getElementById('dice-2').style.display='none';
 
     document.getElementById('score-0').textContent='0';
     document.getElementById('score-1').textContent='0';
